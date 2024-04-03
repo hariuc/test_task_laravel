@@ -35,7 +35,7 @@ class CurrencyMapping implements MappingInterface
             $model = new CurrencyModel();
             $model->date = $date;
             $model->num_code = $inputModel->getNumCode();
-            $model->charCode = $inputModel->getCharCode();
+            $model->char_code = $inputModel->getCharCode();
             $model->nominal = $inputModel->getNominal();
             $model->currency_name = $inputModel->getName();
             $model->currency_value = $inputModel->getValue();

@@ -34,6 +34,12 @@ class CurrencyService
 
     public function getAllCurrencyFromServer():void
     {
+
         $modelArray = $this->repository->getAllCurrencyFromServer();
+        //dd($modelArray);
+        foreach($modelArray as $item){
+            $item->save();
+        }
+
     }
 }

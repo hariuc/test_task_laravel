@@ -2,6 +2,7 @@
 
 namespace App\Application\Modules\Currency\Repositories;
 
+use App\Application\Core\Utils\DateTimeUtils;
 use App\Application\Modules\Currency\Dto\Api\CurrencyDataSource;
 use App\Application\Modules\Currency\Dto\Mapping\CurrencyMapping;
 use App\Application\Modules\Currency\Models\CurrencyModel;
@@ -9,6 +10,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use DateTime;
+use Illuminate\Support\Facades\Date;
 
 class CurrencyRepository
 {
@@ -22,10 +24,55 @@ class CurrencyRepository
         return CurrencyModel::query()->where("id", "=", $id)->firstOrFail();
     }
 
+//    public function getCurrencyModelEqual(?DateTime $dateTime, ?string $numCode, ?string $charCode): Collection
+//    {
+//        $query = CurrencyModel::query();
+//        if (isset($dateTime)) {
+//            $dateTimeUtils = new DateTimeUtils();
+//            $query->where("date", "=", $dateTimeUtils->dateTimeToStr($dateTime));
+//        }
+//
+//        if (isset($numCode)) {
+//            $query->where("num_code", "=", trim($numCode));
+//        }
+//
+//        if (isset($charCode)) {
+//            $query->where("char_code", "=", trim($charCode));
+//        }
+//
+//        return $query->get();
+//    }
+
+    public function getCurrencyModel(array $dateTimes, array $numCodes, array $charCodes): Collection
+    {
+        $query = CurrencyModel::query();
+        if (count($dateTimes) > 0) {
+            $dateTimeUtils = new DateTimeUtils();
+            $query->whereIn("date", array_map(function ($item) use ($dateTimeUtils) {
+                return $dateTimeUtils->dateTimeToStr($item);
+            }, $dateTimes));
+        }
+
+        if (count($numCodes)) {
+            $query->whereIn("num_code", array_map(function ($item) {
+                return trim($item);
+            }, $numCodes));
+        }
+
+        if (count($charCodes)) {
+            $query->whereIn("char_code", array_map(function ($item) {
+                return trim($item);
+            }, $charCodes));
+        }
+
+        return $query->get();
+    }
+
     public function getAllCurrencyFromServer(): array
     {
         $currencyDataSource = new CurrencyDataSource();
-        $currencyDtoArray = $currencyDataSource->getCurrency(new DateTime());
+        $date = new DateTime("2024-04-03");
+        $currencyDtoArray = $currencyDataSource->getCurrency($date);
         //dd($currencyDtoArray);
         $mapping = new CurrencyMapping();
         return array_map(function ($value) use ($mapping) {

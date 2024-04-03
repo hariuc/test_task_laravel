@@ -11,8 +11,10 @@ class XMLUtils
     public function parseCurrencyXML(string $content, string $date): array
     {
         $xmlData = simplexml_load_string($content);
+        //dd($xmlData);
         if ($xmlData instanceof SimpleXMLElement) {
             $currencyApiDtoArray = [];
+            //dd($xmlData);
             foreach ($xmlData->children() as $currency) {
                 $currencyApiDto = new CurrencyApiDto(
                     $date,
@@ -24,6 +26,7 @@ class XMLUtils
                 );
                 $currencyApiDtoArray[] = $currencyApiDto;
             }
+            //dd($currencyApiDtoArray);
             return $currencyApiDtoArray;
         } else {
             Log::error(__METHOD__ . " ERROR ");

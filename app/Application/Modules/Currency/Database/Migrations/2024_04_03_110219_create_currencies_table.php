@@ -21,6 +21,8 @@ return new class() extends Migration {
             $table->timestamps();
 
             $table->comment('Currency table');
+
+            $table->unique(["date", "num_code", "char_code"]);
         });
     }
 

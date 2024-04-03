@@ -16,9 +16,10 @@ class CurrencyDataSource
         $dateTimeUtils = new DateTimeUtils();
         $dateStr = $dateTimeUtils->dateTimeToStr($value);
         $path = AppConstants::$baseUrlPath . "official_exchange_rates?date=" . $dateStr;
+        //dd($path);
         $response = Http::get($path);
-
         if ($response->ok()) {
+            //dd($response->body());
             $xmlUtils = new XMLUtils();
             return $xmlUtils->parseCurrencyXML($response->body(), $dateStr);
         } else {
