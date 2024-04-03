@@ -16,7 +16,8 @@ class CurrencyService
 
     public function index(Request $request)
     {
-        return $this->repository->index($request);
+        //return $this->repository->index($request);
+        return $this->getAllCurrencyFromServer();
     }
 
     /**
@@ -29,5 +30,10 @@ class CurrencyService
         }catch (Exception $exception){
             throw new Exception(__METHOD__);
         }
+    }
+
+    public function getAllCurrencyFromServer():void
+    {
+        $modelArray = $this->repository->getAllCurrencyFromServer();
     }
 }
