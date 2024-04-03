@@ -195,6 +195,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * My Service Providers
+         */
+        App\Application\Modules\Currency\Providers\CurrencyServiceProvider::class,
+
     ],
 
     /*
