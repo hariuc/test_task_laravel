@@ -43,35 +43,35 @@ class CurrencyRepository
 //        return $query->get();
 //    }
 
-    public function getCurrencyModel(array $dateTimes, array $numCodes, array $charCodes): Collection
+    public function getCurrencyModels(array $dateTimes, array $numCodes, array $charCodes): array
     {
         $query = CurrencyModel::query();
         if (count($dateTimes) > 0) {
             $dateTimeUtils = new DateTimeUtils();
             $query->whereIn("date", array_map(function ($item) use ($dateTimeUtils) {
-                return $dateTimeUtils->dateTimeToStr($item);
+                return $dateTimeUtils->dateTimeToStr($item, "Y-m-d");
             }, $dateTimes));
         }
 
-        if (count($numCodes)) {
+        if (count($numCodes) > 0) {
             $query->whereIn("num_code", array_map(function ($item) {
                 return trim($item);
             }, $numCodes));
         }
 
-        if (count($charCodes)) {
+        if (count($charCodes) > 0) {
             $query->whereIn("char_code", array_map(function ($item) {
                 return trim($item);
             }, $charCodes));
         }
-
-        return $query->get();
+        //dd($query->toSql());
+        return $query->get()->toArray();
     }
 
     public function getAllCurrencyFromServer(): array
     {
         $currencyDataSource = new CurrencyDataSource();
-        $date = new DateTime("2024-04-03");
+        $date = new DateTime("2024-03-31");
         $currencyDtoArray = $currencyDataSource->getCurrency($date);
         //dd($currencyDtoArray);
         $mapping = new CurrencyMapping();

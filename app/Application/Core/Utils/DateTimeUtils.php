@@ -22,7 +22,8 @@ class DateTimeUtils
         }
     }
 
-    public function dateTimeToStr(DateTime $value): string{
-        return $value->format("d.m.Y");
+    public function dateTimeToStr(DateTime $value, string $formatType = "d.m.Y"): string{
+        return $value->format($formatType);
     }
+
 }

@@ -2,6 +2,7 @@
 
 namespace App\Application\Modules\Currency\Services;
 
+use App\Application\Core\Utils\CurrencyModelUtils;
 use App\Application\Modules\Currency\Repositories\CurrencyRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -27,18 +28,31 @@ class CurrencyService
     {
         try {
             return $this->repository->show($id);
-        }catch (Exception $exception){
+        } catch (Exception $exception) {
             throw new Exception(__METHOD__);
         }
     }
 
-    public function getAllCurrencyFromServer():void
+    public function getAllCurrencyFromServer(): void
     {
 
         $modelArray = $this->repository->getAllCurrencyFromServer();
         //dd($modelArray);
-        foreach($modelArray as $item){
-            $item->save();
+        $currencyModelUtils = new CurrencyModelUtils();
+        $searchArrayParams = $currencyModelUtils->getSearchParamArray($modelArray);
+        $findCurrencyModels = $this->repository->getCurrencyModels(
+            $searchArrayParams["data_arr"],
+            $searchArrayParams["num_code_arr"],
+            $searchArrayParams["char_code_arr"]
+        );
+
+        $arr = $currencyModelUtils->getArrayExistingOnes($modelArray, $findCurrencyModels);
+        foreach ($modelArray as $item) {
+            if (in_array($item, $arr)) {
+                $item->save();
+            } else {
+                $item->update();
+            }
         }
 
     }
