@@ -17,10 +17,12 @@ class CurrencyWebController extends Controller
 
     public function index(Request $request): View
     {
+        //dd($request->input());
         $params = [
             "title" => AppConstants::TITLE,
             "currency_data" => $this->service->index($request),
         ];
+        //dd($params['currency_data']->links());
         return view("currency", $params);
     }
 

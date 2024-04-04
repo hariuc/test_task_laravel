@@ -18,5 +18,5 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/currency", [CurrencyWebController::class, 'index'])->name("currency");
-Route::get("/currency/{id}", [CurrencyWebController::class, 'show'])->name("currency.show");
+Route::get("/currency", [CurrencyWebController::class, 'index'])->name("currency.list");
+Route::get("/currency/{id}", [CurrencyWebController::class, 'show'])->name("currency.item");

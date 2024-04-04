@@ -13,7 +13,20 @@
     <h1>Currency list (current page = {{ $currency_data->currentPage() ?? 1 }} of {{ $currency_data->lastPage() }})</h1>
 </div>
 
+<div class="search-bar">
+    <form method="get" action="{{ route("currency.list") }}">
+        <label for="date-field">Enter date</label>
+        <input id="date-field" name="date" type="date" placeholder="Date">
+        <label for="numeric-code-field">Enter numeric code</label>
+        <input id="numeric-code-field" name="num_code" type="text" placeholder="Numeric code" maxlength="3">
+        <label for="char-code-field">Enter char code</label>
+        <input id="char-code-field" name="char_code" type="text" placeholder="Char code" maxlength="3">
+        <input type="submit">
+    </form>
+</div>
+<p></p>
 <div class="content">
+
     <table>
         <tr>
             <th><h2>id</h2></th>
@@ -26,7 +39,7 @@
         </tr>
         @foreach($currency_data->items() as $currency)
             <tr>
-                <td><a href="{{ route("currency.show", ["id" => $currency->id]) }}">{{ $currency->id }}</a></td>
+                <td><a href="{{ route("currency.item", ["id" => $currency->id]) }}">{{ $currency->id }}</a></td>
                 <td><h3>{{ (new DateTime($currency->date))->format("d.m.Y") }}</h3></td>
                 <td><h3>{{ strtoupper($currency->num_code) }}</h3></td>
                 <td><h3>{{ strtoupper($currency->char_code) }}</h3></td>
@@ -36,6 +49,16 @@
             </tr>
         @endforeach
     </table>
+
+    {{--    @if($currency_data->links()["paginator"]->currentPage() <  $currency_data->links()["paginator"]->lastPage())--}}
+    {{--        <a href="{{ $currency_data->ele }}">Prevoice</a>--}}
+    {{--    @endif--}}
+
+    {{--    @if ($currency_data->hasMorePages())--}}
+    {{--        <a href="{{ $currency_data->nextPageUrl() }}">Next</a>--}}
+    {{--    @endif--}}
+    {{ $currency_data->links() }}
+
 
 </div>
 

@@ -85,6 +85,30 @@ class CurrencyRepository
     {
         $query = CurrencyModel::query();
 
+        $params = $request->input();
+        
+        if ($request->has("date")) {
+            $date = $request->input("date");
+            if (gettype($date) === 'string') {
+                //if ($date)
+                $query->where("date", '=', $date);
+            }
+        }
+
+        if ($request->has("num_code")) {
+            $numCode = $request->input("num_code");
+            if (gettype($numCode) === 'string') {
+                $query->where("num_code", '=', strtoupper($numCode));
+            }
+        }
+
+        if ($request->has("char_code")) {
+            $charCode = $request->input("char_code");
+            if (gettype($charCode) === 'string') {
+                $query->where("char_code", '=', strtoupper($charCode));
+            }
+        }
+
         $query->orderBy("date", direction: "asc");
         return $query->paginate(AppConstants::PAGINATE_NUMBER);
     }
