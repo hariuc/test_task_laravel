@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Date;
 
 class CurrencyRepository
 {
-    public function index(Request $request)
+    public function index(Request $request, array $validatedData)
     {
-        return $this->getAllCurrency($request);
+        return $this->getAllCurrency($request, $validatedData);
     }
 
     public function show(string $id): Model
@@ -81,32 +81,30 @@ class CurrencyRepository
         }, $currencyDtoArray);
     }
 
-    private function getAllCurrency(Request $request)
+    private function getAllCurrency(Request $request, array $validatedData)
     {
+
         $query = CurrencyModel::query();
 
-        $params = $request->input();
-        
-        if ($request->has("date")) {
-            $date = $request->input("date");
-            if (gettype($date) === 'string') {
-                //if ($date)
-                $query->where("date", '=', $date);
+        if (array_key_exists("date", $validatedData)) {
+            if (isset($validatedData['date'])) {
+                $query->where("date", '=', $validatedData["date"]);
             }
+
         }
 
-        if ($request->has("num_code")) {
-            $numCode = $request->input("num_code");
-            if (gettype($numCode) === 'string') {
-                $query->where("num_code", '=', strtoupper($numCode));
+        if (array_key_exists("num_code", $validatedData)) {
+            if (isset($validatedData["num_code"])) {
+                $query->where("num_code", '=', strtoupper($validatedData["num_code"]));
             }
+
         }
 
-        if ($request->has("char_code")) {
-            $charCode = $request->input("char_code");
-            if (gettype($charCode) === 'string') {
-                $query->where("char_code", '=', strtoupper($charCode));
+        if (array_key_exists("char_code", $validatedData)) {
+            if (isset($validatedData["char_code"])) {
+                $query->where("char_code", '=', strtoupper($validatedData['char_code']));
             }
+
         }
 
         $query->orderBy("date", direction: "asc");

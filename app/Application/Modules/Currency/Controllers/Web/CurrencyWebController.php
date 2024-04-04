@@ -3,10 +3,13 @@
 namespace App\Application\Modules\Currency\Controllers\Web;
 
 use App\Application\Core\AppConstants;
+use App\Application\Modules\Currency\Requests\CurrencyGetRequest;
 use App\Application\Modules\Currency\Services\CurrencyService;
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+
+//use Illuminate\Http\Request;
 use Illuminate\View\View;
+
 
 class CurrencyWebController extends Controller
 {
@@ -15,14 +18,13 @@ class CurrencyWebController extends Controller
 
     }
 
-    public function index(Request $request): View
+    public function index(CurrencyGetRequest $request): View
     {
-        //dd($request->input());
+        $validatedData = $request->validated();
         $params = [
             "title" => AppConstants::TITLE,
-            "currency_data" => $this->service->index($request),
+            "currency_data" => $this->service->index($request, $validatedData),
         ];
-        //dd($params['currency_data']->links());
         return view("currency", $params);
     }
 

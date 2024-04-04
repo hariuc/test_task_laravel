@@ -15,9 +15,9 @@ class CurrencyService
     {
     }
 
-    public function index(Request $request)
+    public function index(Request $request, array $validatedData)
     {
-        return $this->repository->index($request);
+        return $this->repository->index($request, $validatedData);
     }
 
     /**

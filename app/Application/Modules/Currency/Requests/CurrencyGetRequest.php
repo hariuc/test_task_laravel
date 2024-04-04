@@ -23,9 +23,9 @@ class CurrencyGetRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "date" => "date",
-            "num_code" => "string|size:3",
-            "char_code" => "string|size:3",
+            "date" => "nullable|date",
+            "num_code" => "nullable|string|size:3",
+            "char_code" => "nullable|string|size:3",
         ];
     }
 }
