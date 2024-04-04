@@ -2,6 +2,7 @@
 
 namespace App\Application\Modules\Currency\Controllers\Api\V1;
 
+use App\Application\Modules\Currency\Requests\CurrencyGetRequest;
 use App\Application\Modules\Currency\Resources\CurrencyCollectionResource;
 use App\Application\Modules\Currency\Resources\CurrencyResource;
 use App\Application\Modules\Currency\Services\CurrencyService;
@@ -21,9 +22,10 @@ class CurrencyApiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResource
+    public function index(CurrencyGetRequest $request): JsonResource
     {
-        return CurrencyCollectionResource::collection($this->service->index($request));
+        $validatedData = $request->validated();
+        return CurrencyCollectionResource::collection($this->service->index($request, $validatedData));
     }
 
     /**

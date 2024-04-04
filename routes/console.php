@@ -17,3 +17,8 @@ use Illuminate\Support\Facades\Artisan;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
+
+
+Artisan::command('app:currency-upload-from-bnm-command', function () {
+    $this->info('Downloading currencies from the website BNM. Processing ...');
+})->purpose('Downloading currencies from the website BNM');

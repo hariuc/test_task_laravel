@@ -57,7 +57,7 @@
     {{--    @if ($currency_data->hasMorePages())--}}
     {{--        <a href="{{ $currency_data->nextPageUrl() }}">Next</a>--}}
     {{--    @endif--}}
-    {{ $currency_data->links() }}
+{{--    {{ $currency_data->links() }}--}}
 
 
 </div>
