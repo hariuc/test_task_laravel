@@ -2,6 +2,7 @@
 
 namespace App\Application\Modules\Currency\Repositories;
 
+use App\Application\Core\AppConstants;
 use App\Application\Core\Utils\DateTimeUtils;
 use App\Application\Modules\Currency\Dto\Api\CurrencyDataSource;
 use App\Application\Modules\Currency\Dto\Mapping\CurrencyMapping;
@@ -71,7 +72,7 @@ class CurrencyRepository
     public function getAllCurrencyFromServer(): array
     {
         $currencyDataSource = new CurrencyDataSource();
-        $date = new DateTime("2024-03-31");
+        $date = new DateTime();
         $currencyDtoArray = $currencyDataSource->getCurrency($date);
         //dd($currencyDtoArray);
         $mapping = new CurrencyMapping();
@@ -85,6 +86,6 @@ class CurrencyRepository
         $query = CurrencyModel::query();
 
         $query->orderBy("date", direction: "asc");
-        return $query->paginate((integer)env("PAGINATE_NUMBER"));
+        return $query->paginate(AppConstants::PAGINATE_NUMBER);
     }
 }

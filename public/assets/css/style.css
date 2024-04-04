@@ -1,0 +1,24 @@
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Roboto, SansSerif, serif;
+    margin: 16px 20px;
+}
+
+
+table, th, td {
+    border: 1px solid black;
+}
+
+th, td {
+    padding: 8px;
+    text-align: center;
+}
+
+.currency-name {
+    text-align: left;
+}
+
+.currency-value {
+    text-align: right;
+}

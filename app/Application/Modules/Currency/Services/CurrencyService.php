@@ -17,8 +17,7 @@ class CurrencyService
 
     public function index(Request $request)
     {
-        //return $this->repository->index($request);
-        return $this->getAllCurrencyFromServer();
+        return $this->repository->index($request);
     }
 
     /**

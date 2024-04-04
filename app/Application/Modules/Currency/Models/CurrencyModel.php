@@ -12,4 +12,9 @@ class CurrencyModel extends Model
     protected $table      = 'currencies';
     protected $primaryKey = 'id';
     protected $keyType    = 'string';
+
+    protected $hidden = [
+        "created_at",
+        "updated_at",
+    ];
 }

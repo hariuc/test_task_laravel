@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Application\Modules\Currency\Controllers;
+namespace App\Application\Modules\Currency\Controllers\Api\V1;
 
 use App\Application\Modules\Currency\Resources\CurrencyCollectionResource;
 use App\Application\Modules\Currency\Resources\CurrencyResource;
@@ -11,7 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Log;
 
-class CurrencyController extends Controller
+class CurrencyApiController extends Controller
 {
     public function __construct(private readonly CurrencyService $service)
     {

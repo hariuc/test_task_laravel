@@ -4,9 +4,9 @@ namespace App\Application\Modules\Currency\Dto\Api;
 
 use App\Application\Core\AppConstants;
 use App\Application\Core\Utils\DateTimeUtils;
+use App\Application\Core\Utils\RestFullApi;
 use App\Application\Core\Utils\XMLUtils;
 use \DateTime;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class CurrencyDataSource
@@ -15,9 +15,9 @@ class CurrencyDataSource
     {
         $dateTimeUtils = new DateTimeUtils();
         $dateStr = $dateTimeUtils->dateTimeToStr($value);
-        $path = AppConstants::$baseUrlPath . "official_exchange_rates?date=" . $dateStr;
-        //dd($path);
-        $response = Http::get($path);
+        $path = AppConstants::BASE_URL_PATH . "official_exchange_rates?date=" . $dateStr;
+        $restFullApi = new RestFullApi();
+        $response = $restFullApi->get($path);
         if ($response->ok()) {
             //dd($response->body());
             $xmlUtils = new XMLUtils();

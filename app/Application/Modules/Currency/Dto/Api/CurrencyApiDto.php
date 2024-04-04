@@ -8,12 +8,12 @@ class CurrencyApiDto extends ApiDto
 {
 
     public function __construct(
-                                private string $date,
-                                private string $numCode,
-                                private string $charCode,
-                                private string $nominal,
-                                private string $name,
-                                private string $value)
+        readonly private string $date,
+        readonly private string $numCode,
+        readonly private string $charCode,
+        readonly private string $nominal,
+        readonly private string $name,
+        readonly private string $value)
     {
 
     }
@@ -46,5 +46,17 @@ class CurrencyApiDto extends ApiDto
     public function getValue(): string
     {
         return $this->value;
+    }
+
+    public function copyWith(?string $date, ?string $numCode, ?string $charCode, ?string $nominal, ?string $name, ?string $value): self
+    {
+        return new self(
+            $date === null ? $this->date : $date,
+            $numCode === null ? $this->numCode : $numCode,
+            $charCode === null ? $this->charCode : $charCode,
+            $nominal === null ? $this->nominal : $nominal,
+            $name === null ? $this->name : $name,
+            $value === null ? $this->value : $value
+        );
     }
 }

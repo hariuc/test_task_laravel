@@ -1,5 +1,6 @@
 <?php
 
+use App\Application\Modules\Currency\Controllers\Web\CurrencyWebController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,3 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get("/currency", [CurrencyWebController::class, 'index'])->name("currency");
+Route::get("/currency/{id}", [CurrencyWebController::class, 'show'])->name("currency.show");
