@@ -25,7 +25,7 @@ class CurrencyWebController extends Controller
             "title" => AppConstants::TITLE,
             "currency_data" => $this->service->index($request, $validatedData),
         ];
-        return view("currency", $params);
+        return view("layouts.currencies.currency", $params);
     }
 
 
@@ -37,6 +37,6 @@ class CurrencyWebController extends Controller
             "title" => "Currency " . $modelData->currency_name,
             "model_data" => $modelData,
         ];
-        return view("currency_show", $params);
+        return view("layouts.currencies.currency_show", $params);
     }
 }

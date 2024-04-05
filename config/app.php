@@ -41,7 +41,7 @@ return [
     |
     */
 
-    'debug' => (bool) env('APP_DEBUG', false),
+    'debug' => (bool)env('APP_DEBUG', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -200,6 +200,7 @@ return [
          * My Service Providers
          */
         App\Application\Modules\Currency\Providers\CurrencyServiceProvider::class,
+        App\Application\Modules\User\Providers\UserServiceProvider::class,
 
     ],
 

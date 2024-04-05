@@ -10,6 +10,8 @@
 </head>
 <body>
 <div class="title">
+    <a href="{{ route("register") }}">Register</a>
+    <a href="{{ route("login") }}">Login</a>
     <h1>Currency list (current page = {{ $currency_data->currentPage() ?? 1 }} of {{ $currency_data->lastPage() }})</h1>
 </div>
 
@@ -57,7 +59,7 @@
     {{--    @if ($currency_data->hasMorePages())--}}
     {{--        <a href="{{ $currency_data->nextPageUrl() }}">Next</a>--}}
     {{--    @endif--}}
-{{--    {{ $currency_data->links() }}--}}
+    {{--    {{ $currency_data->links() }}--}}
 
 
 </div>
