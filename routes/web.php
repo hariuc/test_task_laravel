@@ -30,7 +30,7 @@ Route::controller(AuthController::class)->group(function () {
     Route::get("/login", 'login')->name("login");
     Route::post("/user-store", "store")->name("user.store");
     Route::post("user-authenticate", "authenticate")->name("user.authenticate");
-    Route::post("/logout", 'logout')->name("logout");
+    Route::post("/user-logout", 'logout')->name("user.logout");
 });
 
 

@@ -10,8 +10,23 @@
 </head>
 <body>
 <div class="title">
-    <a href="{{ route("register") }}">Register</a>
-    <a href="{{ route("login") }}">Login</a>
+    @if(auth()->check())
+        <h2>Hello {{ Auth::user()->name }}</h2>
+        <div class="logout-content">
+            <form method="post" action="{{ route("user.logout") }}">
+                @csrf
+                <div class="logout-button-container">
+                    <button type="submit">
+                        Logout
+                    </button>
+                </div>
+            </form>
+        </div>
+    @else
+        <a href="{{ route("register") }}">Register</a>
+        <a href="{{ route("login") }}">Login</a>
+    @endif
+
     <h1>Currency list (current page = {{ $currency_data->currentPage() ?? 1 }} of {{ $currency_data->lastPage() }})</h1>
 </div>
 
