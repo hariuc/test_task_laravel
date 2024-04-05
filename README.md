@@ -1,56 +1,28 @@
 # Тестовое задание 
 
+## Краткое описание решения 
+В качестве общедоступного api, был выбран сайт национального банка Молдовы
+https://www.bnm.md/md/ . На данно сайте есть сервис по загруке курсов валют на выбранную дату.
+Полный путь к данному сервису выглядит так:
+https://www.bnm.md/md/official_exchange_rates?date=05.04.2024.
+Если перейти по данной ссылке, то мы можем получить курсы валют в формате XML на дату 05.04.2024.
+Можно получить курсы валют и за прошлые периоды, если например вместо даты мы подставим, например любую 
+другую дату из прошлого, то получим курс валют на новую дату.
+Была реализована автоматическая загрузка курсов валют, ежедневно, в 9-00. Если мы выставим 
+периодичность меньше суток, то данные будут перезаписываться в базе данных. Новые записи добавляться не будут.
+Так как при проектировании таблицы базы, было указано условие, что курсы валют не могут дублироваться в 
+пределах суток.
+Была реализована возможность регистрации новых пользователей и возможность авторизации пользователя.
+Если пользователь авторизован, то он получает доступ к редактированию существующих записей в базе 
+курсы валют.
+Была реализована возможность отбора курсов валют по трем параметрам:
+- Дата
+- Числовой код
+- Символьный код
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Пукт задания, связанный с админ панелью FilamentPHP - был выполнен частично.
+Данная админ панель была установлена в данный проект. Создана возможность регстрации и авторизации пользователя
+с входом в дашборд.
+- Не была реализована возможность отображения данных в дашборде админ панели
+- Не была реализована возможноть редактирования записи о курсе валюты в данной админ панели.
