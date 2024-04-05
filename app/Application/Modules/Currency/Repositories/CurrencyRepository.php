@@ -25,25 +25,6 @@ class CurrencyRepository
         return CurrencyModel::query()->where("id", "=", $id)->firstOrFail();
     }
 
-//    public function getCurrencyModelEqual(?DateTime $dateTime, ?string $numCode, ?string $charCode): Collection
-//    {
-//        $query = CurrencyModel::query();
-//        if (isset($dateTime)) {
-//            $dateTimeUtils = new DateTimeUtils();
-//            $query->where("date", "=", $dateTimeUtils->dateTimeToStr($dateTime));
-//        }
-//
-//        if (isset($numCode)) {
-//            $query->where("num_code", "=", trim($numCode));
-//        }
-//
-//        if (isset($charCode)) {
-//            $query->where("char_code", "=", trim($charCode));
-//        }
-//
-//        return $query->get();
-//    }
-
     public function getCurrencyModels(array $dateTimes, array $numCodes, array $charCodes): array
     {
         $query = CurrencyModel::query();

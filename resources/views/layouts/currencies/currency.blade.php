@@ -57,18 +57,20 @@
                 <th><h2></h2></th>
             @endif
         </tr>
-        @foreach($currency_data->items() as $currency)
+        @foreach($view_model as $currency)
             <tr>
-                <td><a href="{{ route("currency.show.item", ["id" => $currency->id]) }}">{{ $currency->id }}</a></td>
-                <td><h3>{{ (new DateTime($currency->date))->format("d.m.Y") }}</h3></td>
-                <td><h3>{{ strtoupper($currency->num_code) }}</h3></td>
-                <td><h3>{{ strtoupper($currency->char_code) }}</h3></td>
-                <td><h3>{{ $currency->nominal }}</h3></td>
-                <td class="currency-name"><h3>{{ $currency->currency_name }}</h3></td>
-                <td class="currency-value"><h3>{{ number_format($currency->currency_value, 4, '.') }}</h3></td>
+                <td>
+                    <a href="{{ route("currency.show.item", ["id" => $currency->getId()]) }}">{{ $currency->getId() }}</a>
+                </td>
+                <td><h3>{{ $currency->getDate()->format("Y-m-d") }}</h3></td>
+                <td><h3>{{ strtoupper($currency->getNumCode()) }}</h3></td>
+                <td><h3>{{ strtoupper($currency->getCharCode()) }}</h3></td>
+                <td><h3>{{ $currency->getNominal() }}</h3></td>
+                <td class="currency-name"><h3>{{ $currency->getName() }}</h3></td>
+                <td class="currency-value"><h3>{{ number_format($currency->getValue(), 4, '.') }}</h3></td>
                 @if($is_auth)
                     <div class="edit-button-container">
-                        <td><a href="{{ route("currency.edit.item", ["id" => $currency->id]) }}">Edit</a></td>
+                        <td><a href="{{ route("currency.edit.item", ["id" => $currency->getId()]) }}">Edit</a></td>
                     </div>
                 @endif
             </tr>

@@ -8,7 +8,7 @@ use App\Application\Modules\Currency\ViewModels\Models\CurrencyViewModelEdit;
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 
-class MappingViewModelEdit implements MappingViewModelInterface
+class ViewModelEditMapping implements MappingViewModelInterface
 {
 
     public function mapFromModelToViewModel(Model $input): ViewModel
@@ -20,7 +20,7 @@ class MappingViewModelEdit implements MappingViewModelInterface
             $input->char_code,
             $input->nominal,
             $input->currency_name,
-            $input->currency_value
+            (float) $input->currency_value
         );
     }
 }

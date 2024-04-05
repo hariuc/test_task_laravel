@@ -18,6 +18,7 @@ use Illuminate\View\View;
 class CurrencyWebController extends Controller
 {
     use CurrencyViewModelTrait;
+
     public function __construct(readonly CurrencyService $service)
     {
 
@@ -26,9 +27,14 @@ class CurrencyWebController extends Controller
     public function index(CurrencyGetRequest $request): View
     {
         $validatedData = $request->validated();
+        $modelResult = $this->service->index($request, $validatedData);
+
         $params = [
             "title" => AppConstants::TITLE,
-            "currency_data" => $this->service->index($request, $validatedData),
+            "currency_data" => $modelResult,
+            "view_model" => array_map(function ($modelItem) {
+                return $this->getCurrencyViewModelList($modelItem);
+            }, $modelResult->items()),
             "is_auth" => auth()->check(),
         ];
         return view("layouts.currencies.currency", $params);
@@ -49,11 +55,9 @@ class CurrencyWebController extends Controller
     public function edit(Request $request, string $id): View|RedirectResponse
     {
 
-        if ($request->isMethod("POST"))
-        {
+        if ($request->isMethod("POST")) {
             return redirect()->route("currency.list");
-        }else
-        {
+        } else {
             $currencyEditModel = $this->getCurrencyViewModelEdit($this->service->show($id));
             $params = [
                 "title" => "Currency " . $currencyEditModel->getName(),
