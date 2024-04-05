@@ -5,6 +5,7 @@ namespace App\Application\Modules\User\Model;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
 use Laravel\Sanctum\HasApiTokens;
@@ -45,14 +46,13 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public static function createNewElement(ParameterBag $parameterBag): self
+    public static function createNewElement(Request $request): bool
     {
-        $arrParameterBag = $parameterBag->all();
+        $params = $request->input();
         $user = new self();
-        $user->name = $arrParameterBag["name"];
-        $user->email = $arrParameterBag["email"];
-        $user->password = Hash::make($arrParameterBag["password"]);
-        $user->save();
-        return $user;
+        $user->name = $params["name"];
+        $user->email = $params["email"];
+        $user->password = Hash::make($params["password"]);
+        return $user->save();
     }
 }
