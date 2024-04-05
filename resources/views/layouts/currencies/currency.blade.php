@@ -27,7 +27,11 @@
         <a href="{{ route("login") }}">Login</a>
     @endif
 
-    <h1>Currency list (current page = {{ $currency_data->currentPage() ?? 1 }} of {{ $currency_data->lastPage() }})</h1>
+    <h1>Currency list
+        @if(count($view_model) > 0)
+            (current page = {{ $currency_data->currentPage() ?? 1 }} of {{ $currency_data->lastPage() }})
+        @endif
+    </h1>
 </div>
 
 <div class="search-bar">
@@ -54,7 +58,9 @@
             <th><h2>Currency name</h2></th>
             <th><h2>Value</h2></th>
             @if($is_auth)
-                <th><h2></h2></th>
+                @if(count($view_model) > 0)
+                    <th><h2></h2></th>
+                @endif
             @endif
         </tr>
         @foreach($view_model as $currency)
@@ -69,24 +75,26 @@
                 <td class="currency-name"><h3>{{ $currency->getName() }}</h3></td>
                 <td class="currency-value"><h3>{{ number_format($currency->getValue(), 4, '.') }}</h3></td>
                 @if($is_auth)
-                    <div class="edit-button-container">
-                        <td><a href="{{ route("currency.edit.item", ["id" => $currency->getId()]) }}">Edit</a></td>
-                    </div>
+                    @if(count($view_model) > 0)
+                        <div class="edit-button-container">
+                            <td><a href="{{ route("currency.edit.item", ["id" => $currency->getId()]) }}">Edit</a></td>
+                        </div>
+                    @endif
                 @endif
             </tr>
         @endforeach
     </table>
 
 
-    @foreach($paginator_links[0] as $key => $value)
-        <a href="{{ $value }}" style="margin-right: 6px"> {{ $key }} </a>
-    @endforeach
-
-    <br>
-    <br>
-    <br>
-    <br>
-
+    @if(count($view_model) > 0)
+        @foreach($paginator_links[0] as $key => $value)
+            <a href="{{ $value }}" style="margin-right: 6px"> {{ $key }} </a>
+        @endforeach
+        <br>
+        <br>
+        <br>
+        <br>
+    @endif
 </div>
 
 </body>
