@@ -25,9 +25,9 @@ class UpdateCurrecnyRequest extends FormRequest
             "date" => "required|date",
             "num_code" => "required|string|size:3",
             "char_code" => "required|string|size:3",
-            "nominal" => "required|string",
-            "currency_name" => "required|string",
-            "currency_value" => "required|string",
+            "nominal" => "required|string|max:3",
+            "currency_name" => "required|string|max:50",
+            "currency_value" => "required|numeric",
         ];
     }
 }

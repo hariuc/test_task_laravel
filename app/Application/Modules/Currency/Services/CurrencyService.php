@@ -3,6 +3,7 @@
 namespace App\Application\Modules\Currency\Services;
 
 use App\Application\Core\Utils\CurrencyModelUtils;
+use App\Application\Modules\Currency\Models\CurrencyModel;
 use App\Application\Modules\Currency\Repositories\CurrencyRepository;
 use Exception;
 use Illuminate\Database\Eloquent\Collection;
@@ -32,11 +33,16 @@ class CurrencyService
         }
     }
 
+    public function update(Request $request, string $id): bool
+    {
+        $currencyModel = $this->show($id);
+        return CurrencyModel::updateModel($request, $currencyModel);
+    }
+
     public function getAllCurrencyFromServer(): void
     {
 
         $modelArray = $this->repository->getAllCurrencyFromServer();
-        //dd($modelArray);
         $currencyModelUtils = new CurrencyModelUtils();
         $searchArrayParams = $currencyModelUtils->getSearchParamArray($modelArray);
         $findCurrencyModels = $this->repository->getCurrencyModels(

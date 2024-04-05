@@ -26,7 +26,8 @@ Route::controller(CurrencyWebController::class)->group(function () {
 
     Route::middleware(["web", "auth"])->group(function (){
         Route::get("/currency/edit/{id}", "edit")->name("currency.edit.item");
-        Route::post("/currency/edit/{id}", "edit")->name("currency.edit.item");
+        //Route::post("/currency/edit/{id}", "edit")->name("currency.edit.item");
+        Route::put("/currency/update/{id}", "update")->name("currency.update.item");
     });
 
 });

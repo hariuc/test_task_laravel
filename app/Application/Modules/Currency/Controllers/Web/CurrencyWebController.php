@@ -5,6 +5,7 @@ namespace App\Application\Modules\Currency\Controllers\Web;
 use App\Application\Core\AppConstants;
 use App\Application\Core\Traits\Currency\CurrencyViewModelTrait;
 use App\Application\Modules\Currency\Requests\CurrencyGetRequest;
+use App\Application\Modules\Currency\Requests\UpdateCurrecnyRequest;
 use App\Application\Modules\Currency\Services\CurrencyService;
 use App\Http\Controllers\Controller;
 
@@ -52,21 +53,23 @@ class CurrencyWebController extends Controller
         return view("layouts.currencies.currency_show", $params);
     }
 
-    public function edit(Request $request, string $id): View|RedirectResponse
+    public function edit(string $id)
     {
+        $currencyEditModel = $this->getCurrencyViewModelEdit($this->service->show($id));
+        $params = [
+            "title" => "Currency " . $currencyEditModel->getName(),
+            "model_data" => $currencyEditModel,
 
-        if ($request->isMethod("POST")) {
+        ];
+        return view("layouts.currencies.currency_edit", $params);
+    }
+
+    public function update(UpdateCurrecnyRequest $request, string $id): View|RedirectResponse
+    {
+        if ($this->service->update($request, $id)) {
             return redirect()->route("currency.list");
         } else {
-            $currencyEditModel = $this->getCurrencyViewModelEdit($this->service->show($id));
-            $params = [
-                "title" => "Currency " . $currencyEditModel->getName(),
-                "model_data" => $currencyEditModel,
-
-            ];
-            return view("layouts.currencies.currency_edit", $params);
+            return back();
         }
-
-
     }
 }

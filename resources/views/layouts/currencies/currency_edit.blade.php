@@ -8,9 +8,10 @@
     <title>{{ $title }}</title>
 </head>
 <body>
-<h1>Currency edit form</h1>
+<h1>Currency update form</h1>
 <div class="currency-edit-content">
-    <form method="post" action="{{ route('currency.edit.item', ["id" => $model_data->getId()]) }}">
+    <form method="post" action="{{ route('currency.update.item', ["id" => $model_data->getId()]) }}">
+        @method('PUT')
         @csrf
         <div class="date-container">
             <label for="date-field">Date</label>
@@ -59,7 +60,7 @@
         <br>
         <div class="value-container">
             <label for="value-field">Value</label>
-            <input id="value-field" name="currency_value" value="{{ $model_data->getValue() }}" type="text"
+            <input id="value-field" name="currency_value" value="{{ $model_data->getValue() }}" type="number"
                    placeholder="Enter currency value">
             @if($errors->has("currency_value"))
                 <span>{{ $errors->first("currency_value") }}</span>
