@@ -77,15 +77,15 @@
         @endforeach
     </table>
 
-    {{--    @if($currency_data->links()["paginator"]->currentPage() <  $currency_data->links()["paginator"]->lastPage())--}}
-    {{--        <a href="{{ $currency_data->ele }}">Prevoice</a>--}}
-    {{--    @endif--}}
 
-    {{--    @if ($currency_data->hasMorePages())--}}
-    {{--        <a href="{{ $currency_data->nextPageUrl() }}">Next</a>--}}
-    {{--    @endif--}}
-    {{--    {{ $currency_data->links() }}--}}
+    @foreach($paginator_links[0] as $key => $value)
+        <a href="{{ $value }}" style="margin-right: 6px"> {{ $key }} </a>
+    @endforeach
 
+    <br>
+    <br>
+    <br>
+    <br>
 
 </div>
 

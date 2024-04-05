@@ -29,13 +29,13 @@ class CurrencyWebController extends Controller
     {
         $validatedData = $request->validated();
         $modelResult = $this->service->index($request, $validatedData);
-
         $params = [
             "title" => AppConstants::TITLE,
             "currency_data" => $modelResult,
             "view_model" => array_map(function ($modelItem) {
                 return $this->getCurrencyViewModelList($modelItem);
             }, $modelResult->items()),
+            "paginator_links" => $modelResult->links()['elements'],
             "is_auth" => auth()->check(),
         ];
         return view("layouts.currencies.currency", $params);
