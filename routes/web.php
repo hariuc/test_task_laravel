@@ -29,11 +29,8 @@ Route::controller(AuthController::class)->group(function () {
     Route::get("/register", 'register')->name("register");
     Route::get("/login", 'login')->name("login");
     Route::post("/user-store", "store")->name("user.store");
+    Route::post("user-authenticate", "authenticate")->name("user.authenticate");
     Route::post("/logout", 'logout')->name("logout");
 });
 
-//Route::get("/register", [AuthController::class, 'register'])->name("register");
-//Route::get("/login", [AuthController::class, 'login'])->name("login");
-//Route::post("/logout", [AuthController::class, 'logout'])->name("logout");
 
-//Route::get("admin-panel/currency/", [AuthController::class, "register"]);

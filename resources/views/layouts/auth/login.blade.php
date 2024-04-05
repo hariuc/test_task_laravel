@@ -9,14 +9,21 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
-<form method="post" action="{{ route("login") }}">
+<form method="post" action="{{ route("user.authenticate") }}">
+    @csrf
     <div class="email-container">
         <label for="email-form">Email</label>
-        <input id="email-form" name="email" type="email">
+        <input id="email-form" name="email" type="email" placeholder="Email">
+        @if($errors->has("email"))
+            <span>{{ $errors->first("email") }}</span>
+        @endif
     </div>
     <div class="password-container">
         <label for="password-form">Password</label>
-        <input id="password-form" type="password">
+        <input id="password-form" name="password" type="password" placeholder="Password">
+        @if($errors->has("password"))
+            <span>{{ $errors->first("password") }}</span>
+        @endif
     </div>
     <div class="register-button-container">
         <button type="submit">
