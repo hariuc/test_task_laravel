@@ -22,7 +22,13 @@ Route::get('/', function () {
 
 Route::controller(CurrencyWebController::class)->group(function () {
     Route::get("/currency", "index")->name("currency.list");
-    Route::get("/currency/{id}", "show")->name("currency.item");
+    Route::get("/currency/show/{id}", "show")->name("currency.show.item");
+
+    Route::middleware(["web", "auth"])->group(function (){
+        Route::get("/currency/edit/{id}", "edit")->name("currency.edit.item");
+        Route::post("/currency/edit/{id}", "edit")->name("currency.edit.item");
+    });
+
 });
 
 Route::controller(AuthController::class)->group(function () {

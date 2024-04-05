@@ -3,16 +3,21 @@
 namespace App\Application\Modules\Currency\Controllers\Web;
 
 use App\Application\Core\AppConstants;
+use App\Application\Core\Traits\Currency\CurrencyViewModelTrait;
 use App\Application\Modules\Currency\Requests\CurrencyGetRequest;
 use App\Application\Modules\Currency\Services\CurrencyService;
 use App\Http\Controllers\Controller;
 
 //use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Illuminate\View\View;
 
 
 class CurrencyWebController extends Controller
 {
+    use CurrencyViewModelTrait;
     public function __construct(readonly CurrencyService $service)
     {
 
@@ -24,6 +29,7 @@ class CurrencyWebController extends Controller
         $params = [
             "title" => AppConstants::TITLE,
             "currency_data" => $this->service->index($request, $validatedData),
+            "is_auth" => auth()->check(),
         ];
         return view("layouts.currencies.currency", $params);
     }
@@ -31,12 +37,32 @@ class CurrencyWebController extends Controller
 
     public function show(string $id): View
     {
-        $modelData = $this->service->show($id);
-        //dd($modelData);
+        $currencyEditModel = $this->getCurrencyViewModelEdit($this->service->show($id));
+        //dd($currencyEditModel);
         $params = [
-            "title" => "Currency " . $modelData->currency_name,
-            "model_data" => $modelData,
+            "title" => "Currency " . $currencyEditModel->getName(),
+            "model_data" => $currencyEditModel,
         ];
         return view("layouts.currencies.currency_show", $params);
+    }
+
+    public function edit(Request $request, string $id): View|RedirectResponse
+    {
+
+        if ($request->isMethod("POST"))
+        {
+            return redirect()->route("currency.list");
+        }else
+        {
+            $currencyEditModel = $this->getCurrencyViewModelEdit($this->service->show($id));
+            $params = [
+                "title" => "Currency " . $currencyEditModel->getName(),
+                "model_data" => $currencyEditModel,
+
+            ];
+            return view("layouts.currencies.currency_edit", $params);
+        }
+
+
     }
 }

@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="title">
-    @if(auth()->check())
+    @if($is_auth)
         <h2>Hello {{ Auth::user()->name }}</h2>
         <div class="logout-content">
             <form method="post" action="{{ route("user.logout") }}">
@@ -53,16 +53,24 @@
             <th><h2>Nominal</h2></th>
             <th><h2>Currency name</h2></th>
             <th><h2>Value</h2></th>
+            @if($is_auth)
+                <th><h2></h2></th>
+            @endif
         </tr>
         @foreach($currency_data->items() as $currency)
             <tr>
-                <td><a href="{{ route("currency.item", ["id" => $currency->id]) }}">{{ $currency->id }}</a></td>
+                <td><a href="{{ route("currency.show.item", ["id" => $currency->id]) }}">{{ $currency->id }}</a></td>
                 <td><h3>{{ (new DateTime($currency->date))->format("d.m.Y") }}</h3></td>
                 <td><h3>{{ strtoupper($currency->num_code) }}</h3></td>
                 <td><h3>{{ strtoupper($currency->char_code) }}</h3></td>
                 <td><h3>{{ $currency->nominal }}</h3></td>
                 <td class="currency-name"><h3>{{ $currency->currency_name }}</h3></td>
                 <td class="currency-value"><h3>{{ number_format($currency->currency_value, 4, '.') }}</h3></td>
+                @if($is_auth)
+                    <div class="edit-button-container">
+                        <td><a href="{{ route("currency.edit.item", ["id" => $currency->id]) }}">Edit</a></td>
+                    </div>
+                @endif
             </tr>
         @endforeach
     </table>

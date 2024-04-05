@@ -3,27 +3,15 @@
 namespace App\Application\Modules\Currency\Dto\Mapping;
 
 use App\Application\Core\ApiDto;
-use App\Application\Core\MappingInterface;
+use App\Application\Core\Interfaces\MappingInterface;
 use App\Application\Core\Utils\DateTimeUtils;
 use App\Application\Modules\Currency\Models\CurrencyModel;
-use Illuminate\Database\Eloquent\Model;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Log;
 
 class CurrencyMapping implements MappingInterface
 {
-
-
-//    public function mapToDto(Model $inputModel): ApiDto
-//    {
-//        return new CurrencyApiDto(
-//            (string)$inputModel->date,
-//            $inputModel->num_code,
-//            $inputModel->char_code,
-//            $inputModel->nominal,
-//            $inputModel->currency_name,
-//            (string)$inputModel->currency_value);
-//    }
 
     /**
      * @throws Exception
@@ -38,7 +26,7 @@ class CurrencyMapping implements MappingInterface
             $model->char_code = strtoupper($inputModel->getCharCode());
             $model->nominal = $inputModel->getNominal();
             $model->currency_name = $inputModel->getName();
-            $model->currency_value = $inputModel->getValue();
+            $model->currency_value = (float) $inputModel->getValue();
 
             return $model;
         } catch (Exeption $exception) {

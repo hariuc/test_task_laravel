@@ -9,13 +9,13 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 </head>
 <body>
-<h1>Currency {{ strtoupper($model_data->currency_name) }}</h1>
-<h2>Id: {{ $model_data->id }}</h2>
-<h2>Date: {{ (new DateTime($model_data->date))->format("d.m.Y")  }}</h2>
-<h2>Numeric code: {{ strtoupper($model_data->num_code) }}</h2>
-<h2>Char code: {{ strtoupper($model_data->char_code) }}</h2>
-<h2>Nominal: {{ $model_data->nominal }}</h2>
-<h2>Currency name: {{ $model_data->currency_name }}</h2>
-<h2>Value: {{ number_format($model_data->currency_value, 4, '.')  }}</h2>
+<h1>Currency {{ strtoupper($model_data->getName()) }}</h1>
+<h2>Id: {{ $model_data->getId() }}</h2>
+<h2>Date: {{ $model_data->getDate()->format("d.m.Y")  }}</h2>
+<h2>Numeric code: {{ strtoupper($model_data->getNumCode()) }}</h2>
+<h2>Char code: {{ strtoupper($model_data->getCharCode()) }}</h2>
+<h2>Nominal: {{ $model_data->getNominal() }}</h2>
+<h2>Currency name: {{ $model_data->getName() }}</h2>
+<h2>Value: {{ number_format($model_data->getValue(), 4, '.')  }}</h2>
 </body>
 </html>
